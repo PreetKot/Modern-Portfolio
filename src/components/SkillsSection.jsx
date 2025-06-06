@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const skills = [
   // Frontend
@@ -63,42 +63,58 @@ const categoryColors = {
 
 const categories = ["Frontend", "Backend", "Tools", "Data Analytics", "DevOps"];
 
-export const SkillsSection = () => (
-  <section id="skills" className="py-24 px-4 relative bg-secondary/30">
-    <div className="container mx-auto max-w-5xl">
-      <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-        My <span className="text-primary">Skills</span>
-      </h2>
-      <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
-        {categories.map((category) => (
-          <div key={category}>
-            <h3 className="text-xl font-semibold mb-4 text-center">{category}</h3>
-            <div className="flex flex-col gap-6">
-              {skills
-                .filter((skill) => skill.category === category)
-                .map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="bg-white/80 dark:bg-card rounded-xl shadow-md p-4 flex flex-col gap-2 items-start transition-transform hover:-translate-y-1 hover:shadow-lg"
-                  >
-                    <span className={`text-xs px-2 py-1 rounded-full font-semibold mb-1 ${categoryColors[skill.category]}`}>
-                      {skill.level}
-                    </span>
-                    <span className="text-base font-medium text-gray-800 dark:text-white">{skill.name}</span>
-                    <div className="w-full">
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className={`${levelColors[skill.level]} h-2 rounded-full transition-all`}
-                          style={{ width: `${levelMap[skill.level]}%` }}
-                        />
-                      </div>
-                    </div>
+export const SkillsSection = () => {
+  const [activeCategory, setActiveCategory] = useState(categories[0]);
+
+  return (
+    <section id="skills" className="py-24 px-4 relative bg-secondary/30">
+      <div className="container mx-auto max-w-5xl">
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+          My <span className="text-primary">Skills</span>
+        </h2>
+        {/* Category Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-4 py-2 rounded-full font-semibold border transition 
+                ${activeCategory === category
+                  ? "bg-primary text-white border-primary shadow"
+                  : "bg-white dark:bg-card text-gray-700 dark:text-white border-gray-300 dark:border-neutral-700 hover:bg-primary/10"
+                }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+        {/* Skills List */}
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
+          {skills
+            .filter((skill) => skill.category === activeCategory)
+            .map((skill) => (
+              <div
+                key={skill.name}
+                className="bg-white/80 dark:bg-card rounded-xl shadow-md p-4 flex flex-col gap-2 items-start w-full transition-transform hover:-translate-y-1 hover:shadow-lg"
+              >
+                <span className={`text-xs px-2 py-1 rounded-full font-semibold mb-1 ${categoryColors[skill.category]}`}>
+                  {skill.level}
+                </span>
+                <span className="text-base font-medium text-gray-800 dark:text-white break-words">
+                  {skill.name}
+                </span>
+                <div className="w-full">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className={`${levelColors[skill.level]} h-2 rounded-full transition-all`}
+                      style={{ width: `${levelMap[skill.level]}%` }}
+                    />
                   </div>
-                ))}
-            </div>
-          </div>
-        ))}
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
