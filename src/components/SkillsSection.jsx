@@ -80,8 +80,8 @@ export const SkillsSection = () => {
               onClick={() => setActiveCategory(category)}
               className={`px-4 py-2 rounded-full font-semibold border transition 
                 ${activeCategory === category
-                  ? "bg-primary text-white border-primary shadow"
-                  : "bg-white dark:bg-card text-gray-700 dark:text-white border-gray-300 dark:border-neutral-700 hover:bg-primary/10"
+                  ? "bg-primary text-gray-900 border-primary shadow"
+                  : "bg-white dark:bg-card text-gray-700 dark:text-red-900 border-gray-300 dark:border-neutral-700 hover:bg-primary/10"
                 }`}
             >
               {category}
@@ -100,7 +100,7 @@ export const SkillsSection = () => {
                 <span className={`text-xs px-2 py-1 rounded-full font-semibold mb-1 ${categoryColors[skill.category]}`}>
                   {skill.level}
                 </span>
-                <span className="text-base font-medium text-gray-800 dark:text-white break-words">
+                <span className="text-base font-medium text-gray-900 dark:text-red-500 break-words w-full">
                   {skill.name}
                 </span>
                 <div className="w-full">
